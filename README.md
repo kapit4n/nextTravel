@@ -7,6 +7,11 @@ The web page where you can plan your next trip.
 * Open the project like web site
 * F5
 
+### Features
+* CRUD trip plan
+* Trip plan Items (Things to carry, to carry or to finish before to go)
+* Checklist of the plan items
+
 ### Contribution guidelines ###
 
 * Code review
