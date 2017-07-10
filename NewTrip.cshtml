@@ -1,0 +1,35 @@
+﻿@{
+
+  Layout = "~/_SiteLayout.cshtml";
+  Page.Title = "New Trip";
+
+  if (IsPost)
+  {
+    string tripLocation = Request.Form["tripLocation"];
+    string tripImage = Request.Form["tripImage"];
+    string tripDescription = Request.Form["tripDescription"];
+    NextTrip nextTrip = new NextTrip();
+    nextTrip.Location = tripLocation;
+    nextTrip.ImageUrl = tripImage;
+    nextTrip.Description = tripDescription;
+
+    NextTripDBEntities1 db = new NextTripDBEntities1();
+    db.NextTrips.Add(nextTrip);
+    db.SaveChanges();
+  }
+}
+
+<hgroup class="title">
+  <h1>@Page.Title.</h1>
+  <h2>Add new trip.</h2>
+</hgroup>
+
+<form method="post">
+  <label for="tripLocation"></label>
+  <input id="tripLocation" name="tripLocation" type="text" placeholder="trip location" required/>
+  <label for="tripImage"></label>
+  <input id="tripImage" name="tripImage" type="text" placeholder="trip image" required/>
+  <label for="tripDescription"></label>
+  <textarea id="tripDescription" name="tripDescription" type="text" placeholder="Description of the trip"></textarea><br />
+  <input type="submit" value="Save"/>
+</form>
