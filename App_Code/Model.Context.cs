@@ -11,10 +11,10 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-public partial class NextTripDBEntities : DbContext
+public partial class NextTripDBEntities1 : DbContext
 {
-    public NextTripDBEntities()
-        : base("name=NextTripDBEntities")
+    public NextTripDBEntities1()
+        : base("name=NextTripDBEntities1")
     {
     }
 
