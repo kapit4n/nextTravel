@@ -29,7 +29,7 @@
     @foreach (var trip in trips)
     {
         <li class="one">
-            <h5>@trip.Location</h5>
+            <h5>@trip.Location</h5><a href="~/EditTrip.cshtml?Id=@trip.Id">EDIT</a>
             <figure>
                 <img src="@trip.ImageUrl" alt="The Pulpit Rock" width="304" height="228">
             </figure>

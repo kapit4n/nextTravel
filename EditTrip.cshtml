@@ -1,0 +1,47 @@
+﻿@{
+
+  Layout = "~/_SiteLayout.cshtml";
+  Page.Title = "Edit Trip";
+
+  NextTrip nextTrip = new NextTrip();
+  string Id = Request.QueryString["Id"];
+  if (Id.IsEmpty())
+  {
+    Response.Redirect("Default.cshtml");
+  }
+  NextTripDBEntities1 db = new NextTripDBEntities1();
+
+  if (IsPost)
+  {
+    nextTrip = db.NextTrips.Where(n => n.Id.ToString() == Id).First();
+    string tripLocation = Request.Form["tripLocation"];
+    string tripImage = Request.Form["tripImage"];
+    string tripDescription = Request.Form["tripDescription"];
+
+    nextTrip.Location = tripLocation;
+    nextTrip.ImageUrl = tripImage;
+    nextTrip.Description = tripDescription;
+    
+    db.SaveChanges();
+    Response.Redirect("Default.cshtml");
+  } else
+  {
+    db.NextTrips.Add(nextTrip);
+    nextTrip = db.NextTrips.Where(n => n.Id.ToString() == Id).First();
+  }
+}
+
+<hgroup class="title">
+  <h1>@Page.Title.</h1>
+  <h2>Add new trip.</h2>
+</hgroup>
+
+<form method="post">
+  <label for="tripLocation"></label>
+  <input id="tripLocation" name="tripLocation" type="text" placeholder="trip location" required value="@nextTrip.Location"/>
+  <label for="tripImage"></label>
+  <input id="tripImage" name="tripImage" type="text" placeholder="trip image" required  value="@nextTrip.ImageUrl"/>
+  <label for="tripDescription"></label>
+  <textarea id="tripDescription" name="tripDescription" type="text" placeholder="Description of the trip"> @nextTrip.Description </textarea><br />
+  <input type="submit" value="Save" />
+</form>
