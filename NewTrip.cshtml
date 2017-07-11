@@ -16,6 +16,7 @@
     NextTripDBEntities1 db = new NextTripDBEntities1();
     db.NextTrips.Add(nextTrip);
     db.SaveChanges();
+    Response.Redirect("Default.cshtml");
   }
 }
 
