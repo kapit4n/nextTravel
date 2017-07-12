@@ -1,0 +1,28 @@
+﻿@{
+
+  Layout = "~/_SiteLayout.cshtml";
+  Page.Title = "Show Trip Information";
+
+  NextTrip trip = new NextTrip();
+  string Id = Request.QueryString["Id"];
+  if (Id.IsEmpty())
+  {
+    Response.Redirect("Default.cshtml");
+  }
+  NextTripDBEntities1 db = new NextTripDBEntities1();
+
+  if (!IsPost)
+  {
+    trip = db.NextTrips.Where(n => n.Id.ToString() == Id).First();
+  }
+}
+
+<hgroup class="title">
+  <p>@Page.Title.</p>
+</hgroup>
+
+<h2>@trip.Location</h2>
+<dl class="dl-vertical">
+  <dd><img src="@trip.ImageUrl" width="350" /></dd>
+  <dd>@trip.Description</dd>
+</dl>

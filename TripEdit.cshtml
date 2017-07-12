@@ -26,7 +26,6 @@
     Response.Redirect("Default.cshtml");
   } else
   {
-    db.NextTrips.Add(nextTrip);
     nextTrip = db.NextTrips.Where(n => n.Id.ToString() == Id).First();
   }
 }
