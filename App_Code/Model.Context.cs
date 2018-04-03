@@ -24,4 +24,5 @@ public partial class NextTripDBEntities1 : DbContext
     }
 
     public virtual DbSet<NextTrip> NextTrips { get; set; }
+    public virtual DbSet<NextTripItem> NextTripItems { get; set; }
 }

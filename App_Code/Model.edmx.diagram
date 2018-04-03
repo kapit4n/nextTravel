@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="2f993f5189b94f2f9a1192543c263cf8" Name="Diagram1">
         <EntityTypeShape EntityType="NextTripDBModel.NextTrip" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NextTripDBModel.NextTripItem" Width="1.5" PointX="4.125" PointY="0.875" />
+        <AssociationConnector Association="NextTripDBModel.FK__NextTripI__NextT__440B1D61" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

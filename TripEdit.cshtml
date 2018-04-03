@@ -1,5 +1,4 @@
 ﻿@{
-
   Layout = "~/_SiteLayout.cshtml";
   Page.Title = "Edit Trip";
 
@@ -13,7 +12,7 @@
 
   if (IsPost)
   {
-    nextTrip = db.NextTrips.Where(n => n.Id.ToString() == Id).First();
+    nextTrip = db.NextTrips.First(n => n.Id.ToString() == Id);
     string tripLocation = Request.Form["tripLocation"];
     string tripImage = Request.Form["tripImage"];
     string tripDescription = Request.Form["tripDescription"];
@@ -21,12 +20,19 @@
     nextTrip.Location = tripLocation;
     nextTrip.ImageUrl = tripImage;
     nextTrip.Description = tripDescription;
-    
+
     db.SaveChanges();
     Response.Redirect("Default.cshtml");
   } else
   {
-    nextTrip = db.NextTrips.Where(n => n.Id.ToString() == Id).First();
+    if (db.NextTrips.Any(n => n.Id.ToString().Equals(Id)))
+    {
+      nextTrip = db.NextTrips.First(n => n.Id.ToString() == Id);
+    }
+    else
+    {
+      Response.Redirect("Default.cshtml");
+    }
   }
 }
 

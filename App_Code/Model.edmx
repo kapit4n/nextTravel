@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NextTripDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="NextTripDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="NextTrip">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,13 +12,38 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Location" Type="varchar" MaxLength="250" />
           <Property Name="ImageUrl" Type="varchar" MaxLength="250" />
-          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Description" Type="text" />
         </EntityType>
+        <EntityType Name="NextTripItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NextTripId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <Association Name="FK__NextTripI__NextT__440B1D61">
+          <End Role="NextTrip" Type="Self.NextTrip" Multiplicity="1" />
+          <End Role="NextTripItem" Type="Self.NextTripItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NextTrip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NextTripItem">
+              <PropertyRef Name="NextTripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="NextTripDBModelStoreContainer">
           <EntitySet Name="NextTrip" EntityType="Self.NextTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NextTripItem" EntityType="Self.NextTripItem" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__NextTripI__NextT__440B1D61" Association="Self.FK__NextTripI__NextT__440B1D61">
+            <End Role="NextTrip" EntitySet="NextTrip" />
+            <End Role="NextTripItem" EntitySet="NextTripItem" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NextTripDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -29,11 +54,39 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Location" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NextTripItems" Relationship="NextTripDBModel.FK__NextTripI__NextT__440B1D61" FromRole="NextTrip" ToRole="NextTripItem" />
         </EntityType>
         <EntityContainer Name="NextTripDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="NextTrips" EntityType="Self.NextTrip" />
+          <EntitySet Name="NextTripItems" EntityType="NextTripDBModel.NextTripItem" />
+          <AssociationSet Name="FK__NextTripI__NextT__440B1D61" Association="NextTripDBModel.FK__NextTripI__NextT__440B1D61">
+            <End Role="NextTrip" EntitySet="NextTrips" />
+            <End Role="NextTripItem" EntitySet="NextTripItems" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="NextTripItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NextTripId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NextTrip" Relationship="NextTripDBModel.FK__NextTripI__NextT__440B1D61" FromRole="NextTripItem" ToRole="NextTrip" />
+        </EntityType>
+        <Association Name="FK__NextTripI__NextT__440B1D61">
+          <End Type="NextTripDBModel.NextTrip" Role="NextTrip" Multiplicity="1" />
+          <End Type="NextTripDBModel.NextTripItem" Role="NextTripItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NextTrip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NextTripItem">
+              <PropertyRef Name="NextTripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -47,6 +100,16 @@
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NextTripItems">
+            <EntityTypeMapping TypeName="NextTripDBModel.NextTripItem">
+              <MappingFragment StoreEntitySet="NextTripItem">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NextTripId" ColumnName="NextTripId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

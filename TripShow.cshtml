@@ -4,8 +4,8 @@
   Page.Title = "Show Trip Information";
 
   NextTrip trip = new NextTrip();
-  string Id = Request.QueryString["Id"];
-  if (Id.IsEmpty())
+  string id = Request.QueryString["Id"];
+  if (id.IsEmpty())
   {
     Response.Redirect("Default.cshtml");
   }
@@ -13,7 +13,14 @@
 
   if (!IsPost)
   {
-    trip = db.NextTrips.Where(n => n.Id.ToString() == Id).First();
+    if (db.NextTrips.Any(n => n.Id.ToString() == id))
+    {
+      trip = db.NextTrips.First(n => n.Id.ToString() == id);
+    }
+    else
+    {
+      Response.Redirect("Default.cshtml");
+    }
   }
 }
 
