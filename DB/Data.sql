@@ -1,0 +1,5 @@
+﻿INSERT INTO NextTrip(Location, ImageUrl, Description) VALUES
+( 'Iquique-Chile', 'http://chile.travel/wp-content/uploads/2016/03/Iquique-sernatur-DST35.jpg', '  This was my trip  '),
+('Statup Travel', 'https://thumbor.forbes.com/thumbor/960x0/smart/https%3A%2F%2Fblogs-images.forbes.com%2Fharoldstark%2Ffiles%2F2017%2F10%2Fstartup.jpg%3Fwidth%3D960', 'I will need to work in a group of tasks and develop them to release a new skills in 6 months, like a project that proves that I worked with python/larabel/drupal/vuejs/django etc, something that is comming and I would like to work in a project with that technology.'),
+('Next Project X', 'https://starterpad.com/blog/wp-content/uploads/2016/12/Project-Management-750x410.jpg', 'Cost: 1 hour a day
+This project will be a test project to develop my skills on angular 5, well on this project I will be able to generate and prove that I can write something amazing with just writing one  line of source code');

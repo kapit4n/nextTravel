@@ -25,11 +25,47 @@
 }
 
 <hgroup class="title">
-  <p>@Page.Title.</p>
+  <p style="text-transform: uppercase">@Page.Title.</p>
 </hgroup>
 
-<h2>@trip.Location</h2>
+<h2 style="text-transform: uppercase">@trip.Location</h2>
 <dl class="dl-vertical">
   <dd><img src="@trip.ImageUrl" width="350" /></dd>
   <dd>@trip.Description</dd>
 </dl>
+<h3>Items</h3><button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+<ul class="list-group">
+  @foreach (var tripItem in trip.NextTripItems)
+  {
+    <li class="list-group-item"><button class="btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>@tripItem.Name</li>
+  }
+  
+  <li class="list-group-item"><button class="btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button> Create the github/bitbucket repository</li>
+  <li class="list-group-item"><button class="btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button> Create the data to be shown</li>
+  <li class="list-group-item"><button class="btn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button> Start with the home page</li>
+</ul>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new trip item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <dl class="dl-horizontal">
+          <dt>Name</dt>
+          <dd><input type="text" /></dd>
+          <dt>Description</dt>
+          <dd><input type="text" /></dd>
+        </dl>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
