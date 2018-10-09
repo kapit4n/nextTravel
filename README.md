@@ -1,6 +1,5 @@
-# README #
-
 The web page where you can plan your next trip.
+![Home](https://raw.githubusercontent.com/kapit4n/nextTravel/master/mockups/next-travel-home.png)
 
 ### How do I get set up? ###
 
